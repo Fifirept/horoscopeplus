@@ -69,31 +69,32 @@ Il permet de personnaliser un virtuel ou une commande affichée sur un design qu
 
 1. Ajouter la commande `Logo` de l'équipement HoroscopePlus sur un design
 
-<p align="center"><img width="161" height="271" alt="image" src="https://github.com/user-attachments/assets/388c6fdb-8d21-4740-890e-88576019be2f" /></p>
-<p align="center"><img width="404" height="126" alt="image" src="https://github.com/user-attachments/assets/f12d2870-fba3-478f-a670-6f78bab7aab6" /></p>
+   <p align="center"><img width="161" height="271" alt="image" src="https://github.com/user-attachments/assets/388c6fdb-8d21-4740-890e-88576019be2f" /></p>
+   <p align="center"><img width="404" height="126" alt="image" src="https://github.com/user-attachments/assets/f12d2870-fba3-478f-a670-6f78bab7aab6" /></p>
 
 2. Dans la configuration de la commande > Affichage > Widget, sélectionner `Customtemp/HoroscopePlus_logo`
 
-<p align="center"><img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/a33ba47d-0433-4393-b3c9-249039ae3105" /></p>
+   <p align="center"><img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/a33ba47d-0433-4393-b3c9-249039ae3105" /></p>
 
 3. Le logo s'affiche et ouvre automatiquement le bon horoscope au clic
 
-<p align="center"><img width="581" height="386" alt="image" src="https://github.com/user-attachments/assets/23f65796-c989-4f7e-8add-c70a9e13e16a" /></p>
+   <p align="center"><img width="581" height="386" alt="image" src="https://github.com/user-attachments/assets/23f65796-c989-4f7e-8add-c70a9e13e16a" /></p>
 
 ### Utilisation dans un virtuel
 
 1. Créer un nouveau virtuel
+
 2. Importer les commandes `Logo` + `date` (optionnel) de chaque signe à visualiser
 
-<p align="center"><img width="956" height="277" alt="image" src="https://github.com/user-attachments/assets/28910c21-4def-4b8c-896f-5d6c32a2baad" /></p>
+   <p align="center"><img width="956" height="277" alt="image" src="https://github.com/user-attachments/assets/28910c21-4def-4b8c-896f-5d6c32a2baad" /></p>
 
 3. Dans la configuration de la commande `Logo` > Affichage > Widget, sélectionner `Customtemp/HoroscopePlus_logo`
 
-<p align="center"><img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/843f9e3f-f713-4950-852d-1ff88bd471ae" /></p>
+   <p align="center"><img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/843f9e3f-f713-4950-852d-1ff88bd471ae" /></p>
 
 4. Optionnel : Afficher le virtuel en mode "tableau"
 
-<p align="center"><img width="465" height="379" alt="image" src="https://github.com/user-attachments/assets/dc308186-d69a-4b90-a370-e3902a1edba7" /></p>
+   <p align="center"><img width="465" height="379" alt="image" src="https://github.com/user-attachments/assets/dc308186-d69a-4b90-a370-e3902a1edba7" /></p>
 
 ---
 

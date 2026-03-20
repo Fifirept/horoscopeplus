@@ -1,6 +1,6 @@
 # HoroscopePlus
 
-Plugin Jeedom permettant de récupérer et d'afficher l'horoscope quotidien occidental et chinois, avec widget personnalisé et intégration native dans les designs.
+Plugin Jeedom entierement fait par IA permettant de récupérer et d'afficher l'horoscope quotidien occidental et chinois, avec widget personnalisé et intégration native dans les designs.
 
 <p align="center"><img width="952" height="375" alt="image" src="https://github.com/user-attachments/assets/e6ffec6c-066a-4521-af52-a8bbb924e78c" /></p>
 

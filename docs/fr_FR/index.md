@@ -66,17 +66,12 @@ Il permet de personnaliser un virtuel ou une commande affichée sur un design qu
 
 **Utilisation :**
 	Sur une commande de design :
-	1. Ajouter la commande `Logo` de l'équipement HoroscopePlus sur un design
-	
-	<img width="161" height="271" alt="image" src="https://github.com/user-attachments/assets/388c6fdb-8d21-4740-890e-88576019be2f" />
-<img width="404" height="126" alt="image" src="https://github.com/user-attachments/assets/f12d2870-fba3-478f-a670-6f78bab7aab6" />
-
+		1. Ajouter la commande `Logo` de l'équipement HoroscopePlus sur un design
+		<img width="161" height="271" alt="image" src="https://github.com/user-attachments/assets/388c6fdb-8d21-4740-890e-88576019be2f" /> <img width="404" height="126" alt="image" src="https://github.com/user-attachments/assets/f12d2870-fba3-478f-a670-6f78bab7aab6" />
 	2. Dans la configuration de la commande > Affichage > Widget, sélectionner `Customtemp/HoroscopePlus_logo`
-	
-	<img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/a33ba47d-0433-4393-b3c9-249039ae3105" />
+		<img width="518" height="167" alt="image" src="https://github.com/user-attachments/assets/a33ba47d-0433-4393-b3c9-249039ae3105" />
 	3. Le logo s'affiche et ouvre automatiquement le bon horoscope au clic
-	
-<img width="581" height="386" align=center alt="image" src="https://github.com/user-attachments/assets/23f65796-c989-4f7e-8add-c70a9e13e16a" />
+	<img width="581" height="386" align=center alt="image" src="https://github.com/user-attachments/assets/23f65796-c989-4f7e-8add-c70a9e13e16a" />
 
 Dans un virtuel :
 	1. Créer un nouveau virtuel

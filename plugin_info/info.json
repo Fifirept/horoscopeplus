@@ -1,0 +1,16 @@
+{
+  "id": "horoscopeplus",
+  "name": "HoroscopePlus",
+  "description": "Plugin HoroscopePlus",
+  "licence": "AGPL",
+  "author": "Fifirept",
+  "require": "4.5",
+  "category": "organization",
+  "pluginVersion": "1.67",
+  "hasDependency": false,
+  "hasOwnDeamon": false,
+  "changelog": "",
+  "documentation": "",
+  "language": ["fr_FR"],
+  "compatibility": ["diy", "rpi", "docker"]
+}

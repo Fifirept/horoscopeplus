@@ -1,0 +1,139 @@
+<div class="cmd cmd-widget" data-type="info" data-subtype="string" data-template="HoroscopePlus_logo" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+  <div class="content">
+    <img class="horoscope-logo-img" src="#value#" alt="#name_display#" title="#name_display#" />
+  </div>
+  <template>
+    <div>eqLogic_id: {{(Optionnel) Id Jeedom de l'équipement HoroscopePlus à ouvrir. Si non renseigné, détection automatique.}}</div>
+  </template>
+  <script>
+    (function() {
+      var uid      = '#uid#';
+      var forcedId = ('#param_eqLogic_id#'.indexOf('#') === -1) ? '#param_eqLogic_id#' : null;
+
+      // Tables de correspondance signe -> numéro dans l'URL du logo
+      var signeOccidental = {
+        'belier':0,'taureau':1,'gemeaux':2,'cancer':3,'lion':4,'vierge':5,
+        'balance':6,'scorpion':7,'sagittaire':8,'capricorne':9,'verseau':10,'poissons':11
+      };
+      var signeChinois = {
+        'rat':0,'boeuf':1,'tigre':2,'lapin':3,'lievre':3,'dragon':4,'serpent':5,
+        'cheval':6,'chevre':7,'singe':8,'coq':9,'chien':10,'cochon':11
+      };
+
+      jeedom.cmd.addUpdateFunction('#id#', function(_options) {
+        var cmd = document.querySelector('.cmd[data-cmd_uid="' + uid + '"]');
+        if (cmd) cmd.querySelector('.horoscope-logo-img').src = _options.value;
+      });
+
+      jeedom.cmd.refreshValue([{
+        cmd_id: '#id#',
+        value: '#value#',
+        display_value: '#state#',
+        valueDate: '#valueDate#',
+        collectDate: '#collectDate#',
+        alertLevel: '#alertLevel#',
+        unit: '#unite#'
+      }]);
+
+      document.querySelector('.cmd[data-cmd_uid="' + uid + '"] .horoscope-logo-img').addEventListener('click', function() {
+        if (document.hidden) return;
+        if (document.querySelector('.div_displayObject.editingMode')) return;
+
+        var eqName = this.getAttribute('title') || 'Horoscope';
+
+        if (forcedId) {
+          openModal(forcedId, eqName);
+          return;
+        }
+
+        // Détection automatique : extraire le numéro du logo depuis l'URL
+        var src = this.src;
+        var isChinois   = src.indexOf('sign_ch_color_') !== -1;
+        var logoNumMatch = src.match(/sign_(?:ch_)?color_(\d+)\.png/);
+        if (!logoNumMatch) return;
+        var logoNum = parseInt(logoNumMatch[1]);
+
+        // Récupérer tous les équipements horoscopeplus et trouver celui qui correspond
+        $.ajax({
+          type: 'POST',
+          url: 'core/ajax/eqLogic.ajax.php',
+          data: { action: 'listByType', type: 'horoscopeplus' },
+          dataType: 'json',
+          success: function(data) {
+            if (data.state !== 'ok' || !data.result) return;
+
+            var matchId = null;
+            $.each(data.result, function(i, eq) {
+              var signe = (eq.configuration && eq.configuration.signe) ? eq.configuration.signe.toLowerCase() : '';
+              var type  = (eq.configuration && eq.configuration.type)  ? eq.configuration.type.toLowerCase()  : '';
+              var table = (type === 'chinois') ? signeChinois : signeOccidental;
+              if (table[signe] === logoNum && isChinois === (type === 'chinois')) {
+                matchId = eq.id;
+                return false; // break
+              }
+            });
+
+            if (matchId) {
+              openModal(matchId, eqName);
+            } else {
+              console.warn('[HoroscopePlus_logo] Aucun équipement trouvé pour le logo num ' + logoNum);
+            }
+          }
+        });
+      });
+
+      function openModal(eqLogicId, eqName) {
+        $.ajax({
+          type: 'POST',
+          url: 'core/ajax/eqLogic.ajax.php',
+          data: { action: 'toHtml', id: eqLogicId, version: 'dashboard' },
+          dataType: 'json',
+          success: function(data) {
+            if (data.state !== 'ok' || !data.result || !data.result.html) return;
+
+            var $modal = $('#md_modal');
+            $modal
+              .dialog({ title: eqName, width: 'auto', height: 'auto' })
+              .html(data.result.html)
+              .dialog('open');
+
+            $modal.closest('.ui-dialog').css('visibility', 'hidden');
+
+            setTimeout(function() {
+              var contentWidth  = $modal.find('.eqLogic').outerWidth(true);
+              var contentHeight = $modal.find('.eqLogic').outerHeight(true);
+              if (contentWidth && contentHeight) {
+                $modal.dialog('option', 'width',  contentWidth  + 40);
+                $modal.dialog('option', 'height', contentHeight + 80);
+                $modal.dialog('option', 'position', { my: 'center', at: 'center', of: window });
+              }
+              $modal.closest('.ui-dialog').css('visibility', 'visible');
+            }, 50);
+          }
+        });
+      }
+    })();
+  </script>
+</div>
+
+<style>
+.cmd[data-template="HoroscopePlus_logo"] {
+  display: inline-block;
+  cursor: pointer;
+}
+.cmd[data-template="HoroscopePlus_logo"] .content {
+  display: inline-block;
+}
+.cmd[data-template="HoroscopePlus_logo"] .horoscope-logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.cmd[data-template="HoroscopePlus_logo"]:hover .horoscope-logo-img {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+</style>

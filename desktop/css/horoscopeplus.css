@@ -1,0 +1,10 @@
+/* HoroscopePlus - correctif onglet actif thème Dark
+ * Jeedom applique var(--form-bg-color) !important sur tous les li/a des nav-tabs
+ * sans distinction actif/inactif. On surcharge avec une spécificité plus haute
+ * pour que l'onglet actif ressorte visuellement avec --bg-color (fond de page).
+ */
+ul.nav.nav-tabs li.active > a,
+ul.nav.nav-tabs li.active > a:hover,
+ul.nav.nav-tabs li.active > a:focus {
+  background-color: var(--bg-color) !important;
+}

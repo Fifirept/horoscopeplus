@@ -9,8 +9,9 @@
   "pluginVersion": "1.67",
   "hasDependency": false,
   "hasOwnDeamon": false,
-  "changelog": "",
-  "documentation": "",
+  "changelog": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/changelog",
+  "documentation": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/",
+	"link" : {",
   "language": ["fr_FR"],
   "compatibility": ["diy", "rpi", "docker"]
 }

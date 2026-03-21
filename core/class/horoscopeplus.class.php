@@ -598,8 +598,8 @@ class horoscopeplus extends eqLogic {
       }
       log::add('horoscopeplus', 'info', 'cron personnalisé déclenché (' . $cronExpr . ') à ' . date('H:i:s'));
     } else {
-      // Pas de cron perso : on se comporte comme cronDaily (00:00)
-      if (date('H:i') !== '00:00') {
+      // Pas de cron perso : on se comporte comme cronDaily (01:00)
+      if (date('H:i') !== '01:00') {
         return;
       }
       log::add('horoscopeplus', 'info', 'cron quotidien (défaut) démarré à ' . date('H:i:s'));

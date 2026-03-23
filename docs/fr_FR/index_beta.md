@@ -1,4 +1,4 @@
-# HoroscopePlus (_beta_)
+# HoroscopePlus (beta)
 
 Plugin Jeedom entièrement fait par IA permettant de récupérer et d'afficher l'horoscope quotidien occidental et chinois, avec widget personnalisé et intégration native dans les designs.
 
@@ -12,7 +12,7 @@ Plugin Jeedom entièrement fait par IA permettant de récupérer et d'afficher l
 - Support de l'horoscope occidental (12 signes) et chinois (12 signes)
 - Affichage complet ou sélectif sous la forme de tableau : logo, date, thèmes (Humeur, Amour, Argent, Travail, Loisirs, Décans...)
 - Widget logo `HoroscopePlus_logo` : pour personnaliser un virtuel qui n'affiche que le logo du signe, et ouvre l'horoscope complet du signe en modale au clic
-- Rafraîchissement automatique quotidien (à 07h30 par défaut) ou personnalisé via un assistant cron sur la page de paramétrage du plugin
+- Rafraîchissement automatique quotidien (à 01h30 par défaut) ou personnalisé via un assistant cron sur la page de paramétrage du plugin
 - Rafraîchissement manuel depuis la page principale de l'équipement ou depuis la tuile (dashboard et design)
 - Personnalisation de l'apparence : couleurs du texte et des bordures, tailles de la police et du logo, alignements du texte
 
@@ -43,7 +43,7 @@ Plugin Jeedom entièrement fait par IA permettant de récupérer et d'afficher l
 
 ## Configuration du cron
 
-Par défaut, l'horoscope est rafraîchi chaque jour à 07h30. Il est possible de définir manuellement l'heure de synchronisation dans les paramètres du plugin (assistant de configuration en cliquant sur "?").
+Par défaut, l'horoscope est rafraîchi chaque jour à 01h30. Il est possible de définir manuellement l'heure de synchronisation dans les paramètres du plugin (assistant de configuration en cliquant sur "?").
 
 <p align="center"><img width="690" height="67" alt="image" src="https://github.com/user-attachments/assets/fb276362-a7f0-4375-b499-ddc22022bde7" /></p>
 

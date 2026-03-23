@@ -1,4 +1,4 @@
-# HoroscopePlus (beta)
+# HoroscopePlus (_beta_)
 
 Plugin Jeedom entièrement fait par IA permettant de récupérer et d'afficher l'horoscope quotidien occidental et chinois, avec widget personnalisé et intégration native dans les designs.
 

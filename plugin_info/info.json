@@ -10,7 +10,9 @@
   "hasDependency": false,
   "hasOwnDeamon": false,
   "changelog": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/changelog",
-  "documentation": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/",
+  "documentation": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/index",
+  "changelog_beta": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/changelog_beta",
+  "documentation_beta": "https:\/\/fifirept.github.io\/horoscopeplus\/#language#/index_beta",
   "language": ["fr_FR"],
   "compatibility": ["diy", "rpi", "docker"]
 }

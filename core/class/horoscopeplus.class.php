@@ -36,14 +36,18 @@ class horoscopeplus extends eqLogic {
       $dateCache = is_object($cmdDate) ? $cmdDate->getCache('value') : null;
       $date      = (is_array($dateCache) && isset($dateCache['value'])) ? $dateCache['value'] : (is_string($dateCache) ? $dateCache : '');
 
-      // Filtre : hors Date/Logo + respect isVisible
+      // Filtre : hors Date/Logo + respect isVisible + ordre Jeedom (drag & drop)
       $displayThemes = array();
-      foreach ($themes as $t) {
-        if (in_array($t, array('Date', 'Logo'), true)) continue;
-        $cmd = $this->getCmd('info', horoscopeplus::logicalIdFromTheme($t));
-        if (!is_object($cmd)) continue;
+      $allCmds = $this->getCmd('info');
+      // Trier par ordre Jeedom
+      usort($allCmds, function($a, $b) {
+        return intval($a->getOrder()) - intval($b->getOrder());
+      });
+      foreach ($allCmds as $cmd) {
+        $logicalId = $cmd->getLogicalId();
+        if (in_array($logicalId, array('date', 'logo'), true)) continue;
         if (intval($cmd->getIsVisible()) === 0) continue;
-        $displayThemes[] = $t;
+        $displayThemes[] = $cmd->getName();
       }
 
       $rowCount = count($displayThemes);
@@ -133,6 +137,7 @@ class horoscopeplus extends eqLogic {
         . 'icon.addClass("fa-spin");'
         . '$.post("plugins/horoscopeplus/core/ajax/horoscopeplus.ajax.php",{action:"refresh",eqLogic_id:id},function(d){'
         . 'icon.removeClass("fa-spin");'
+        . 'jeedom.eqLogic.refreshWidget({id:id,version:"dashboard"});'
         . '},"json");'
         . '});}'
         . '</script>';
@@ -162,8 +167,11 @@ class horoscopeplus extends eqLogic {
   public function postSave() {
     // Initialiser les couleurs par défaut si pas encore définies (nouvel équipement)
     $defaults = [
+      'col1_width' => '110px',
       'col2_color' => '#ff0000',
+      'col2_size'  => '10px',
       'col3_color' => '#000000',
+      'col3_size'  => '10px',
       'col23_bg'   => '#cfcfcf',
     ];
     $changed = false;
@@ -197,8 +205,7 @@ class horoscopeplus extends eqLogic {
       $logicalId = self::logicalIdFromTheme($theme);
 
       $cmd = $this->getCmd('info', $logicalId);
-      $isNew = !is_object($cmd);
-      if ($isNew) {
+      if (!is_object($cmd)) {
         $cmd = new horoscopeplusCmd();
         $cmd->setEqLogic_id($this->getId());
         $cmd->setType('info');
@@ -206,11 +213,10 @@ class horoscopeplus extends eqLogic {
         $cmd->setLogicalId($logicalId);
       }
       $cmd->setName($theme);
-      // Appliquer le widget HoroscopePlus_logo uniquement à la création
-      // pour ne pas écraser le choix de l'utilisateur lors des sauvegardes suivantes
-      if ($isNew && $logicalId === 'logo') {
-        $cmd->setTemplate('dashboard', 'HoroscopePlus_logo');
-        $cmd->setTemplate('mobile', 'HoroscopePlus_logo');
+      // Appliquer le widget logo_horoscope sur la commande Logo
+      if ($logicalId === 'logo') {
+        $cmd->setTemplate('dashboard', 'logo_horoscope');
+        $cmd->setTemplate('mobile', 'logo_horoscope');
       }
       $cmd->save();
     }
@@ -473,8 +479,7 @@ class horoscopeplus extends eqLogic {
   }
 
   /**
-   * Occidental : parsing robuste basé sur les libellés répétés (barre + section).
-   * On saute la 1ère "barre résumé" en démarrant après la séquence ...Loisirs... puis Humeur (2ème occurrence). [1](https://apihome.fr/blog/domotique-maison/jeedom-la-solution-open-source-pour-automatiser-votre-maison-intelligente/)
+   * Occidental : parsing robuste basé sur les sections horoscope et décan.
    */
   public static function fetchOccidental(string $signe): array {
     // Normalisation (accents / espaces)
@@ -573,14 +578,9 @@ class horoscopeplus extends eqLogic {
 
 
   /**
-   * Méthode appelée par Jeedom toutes les minutes.
-   * On l'utilise uniquement si un cron personnalisé est défini dans la config du plugin.
-   * Sinon, c'est cronDaily() qui prend le relais.
-   */
-  /**
    * Appelé toutes les minutes par Jeedom.
    * - Si un cron personnalisé est défini dans la config : on vérifie l'expression et on refresh si due.
-   * - Sinon : comportement cronDaily (refresh une fois par jour à minuit).
+   * - Sinon : comportement cronDaily (refresh une fois par jour à 01:30).
    */
   public static function cron() {
     $cronExpr = trim(config::byKey('cron_refresh', 'horoscopeplus', ''));
@@ -598,11 +598,11 @@ class horoscopeplus extends eqLogic {
       }
       log::add('horoscopeplus', 'info', 'cron personnalisé déclenché (' . $cronExpr . ') à ' . date('H:i:s'));
     } else {
-      // Pas de cron perso : on se comporte comme cronDaily (01:00)
-      if (date('H:i') !== '01:00') {
+      // Pas de cron perso : on se comporte comme cronDaily (00:00)
+      if (date('H:i') !== '01:30') {
         return;
       }
-      log::add('horoscopeplus', 'info', 'cron quotidien (défaut) démarré à ' . date('H:i:s'));
+      log::add('horoscopeplus', 'info', 'cron quotidien (défaut 01:30) démarré à ' . date('H:i:s'));
     }
 
     self::refreshAllEqLogics('cron');

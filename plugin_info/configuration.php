@@ -26,7 +26,7 @@ $pluginVersion = isset($data['pluginVersion']) ? $data['pluginVersion'] : '?';
         <div class="form-group">
             <label class="col-sm-4 control-label">
                 {{Heure de rafraîchissement}}
-                <sup><i class="fas fa-question-circle" title="{{Expression cron définissant la fréquence de mise à jour de tous les horoscopes. Par défaut : tous les jours à 01h00}}"></i></sup>
+                <sup><i class="fas fa-question-circle" title="{{Expression cron définissant la fréquence de mise à jour de tous les horoscopes. Par défaut : tous les jours à 01:30.}}"></i></sup>
             </label>
             <div class="col-sm-6">
                 <div class="input-group">
@@ -41,7 +41,7 @@ $pluginVersion = isset($data['pluginVersion']) ? $data['pluginVersion'] : '?';
                         </a>
                     </span>
                 </div>
-                <span class="help-block">{{Laisser vide pour utiliser le cron quotidien par défaut (01h00). Exemple : "30 7 * * *" pour tous les jours à 7h30.}}</span>
+                <span class="help-block">{{Laisser vide pour utiliser le cron quotidien par défaut (01:30). Exemple : "30 7 * * *" pour tous les jours à 7h30.}}</span>
             </div>
         </div>
 

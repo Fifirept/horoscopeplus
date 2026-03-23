@@ -26,33 +26,8 @@ function horoscopeplus_update() {
     $pluginVersion = isset($data['pluginVersion']) ? $data['pluginVersion'] : '0.0';
     config::save('version', $pluginVersion, 'horoscopeplus');
     config::save('functionality::cron::enable', 1, 'horoscopeplus');
-    horoscopeplus_install_widget();
     log::add('horoscopeplus', 'info', 'Plugin HoroscopePlus mis à jour en version ' . $pluginVersion);
 }
 
-function horoscopeplus_install_widget() {
-    $src  = dirname(__FILE__) . '/../desktop/template/cmd.info.string.HoroscopePlus_logo.html';
-    $dest = __DIR__ . '/../../../data/customTemplates/dashboard/cmd.info.string.HoroscopePlus_logo.html';
-    $dir  = dirname($dest);
-
-    if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
-    }
-
-    // Copie uniquement si le fichier source existe
-    if (file_exists($src)) {
-        copy($src, $dest);
-        log::add('horoscopeplus', 'info', 'Widget HoroscopePlus_logo installé dans ' . $dest);
-    } else {
-        log::add('horoscopeplus', 'warning', 'Widget source introuvable : ' . $src);
-    }
-}
-
 function horoscopeplus_remove() {
-    // Suppression du widget custom à la désinstallation
-    $dest = __DIR__ . '/../../../data/customTemplates/dashboard/cmd.info.string.HoroscopePlus_logo.html';
-    if (file_exists($dest)) {
-        unlink($dest);
-        log::add('horoscopeplus', 'info', 'Widget HoroscopePlus_logo supprimé');
-    }
 }

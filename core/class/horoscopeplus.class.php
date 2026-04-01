@@ -83,7 +83,7 @@ class horoscopeplus extends eqLogic {
               $table .= '<img src="' . htmlspecialchars($logoUrl) . '" style="width:' . htmlspecialchars($col1_width) . ';height:' . htmlspecialchars($col1_width) . ';display:block;margin:0 auto 4px auto;">';
             }
             $table .= '<span style="font-size:0.75em;color:#888;display:block;">' . htmlspecialchars($date) . '</span>';
-            $table .= '<a class="bt_refreshHoroscopeWidget cursor" data-eqlogic-id="' . $this->getId() . '" title="Rafraîchir" style="font-size:0.8em;color:#aaa;display:block;margin-top:4px;"><i class="fas fa-sync-alt"></i></a>';
+            $table .= '<a class="bt_refreshHoroscopeWidget cursor" data-eqlogic-id="' . $this->getId() . '" data-refresh-cmd-id="' . $refreshCmdId . '" title="Rafraîchir" style="font-size:0.8em;color:#aaa;display:block;margin-top:4px;"><i class="fas fa-sync-alt"></i></a>';
             $table .= '<span style="font-size:8px;color:#bbb;display:block;margin-top:4px;word-break:break-all;">mon-horoscope-du-jour.com</span>';
             $table .= '</td>';
             $first = false;
@@ -127,25 +127,20 @@ class horoscopeplus extends eqLogic {
         $html = substr($html, 0, $posOpen) . $table . substr($html, $i);
       }
       // Ajouter le bouton refresh via JS dans la tuile
-      $eqId = $this->getId();
+      $refreshCmd = $this->getCmd('action', 'refresh');
+      $refreshCmdId = is_object($refreshCmd) ? $refreshCmd->getId() : 0;
       $script = '<script>'
         . 'if(typeof horoscopeplusRefreshWidget === "undefined"){'
         . 'window.horoscopeplusRefreshWidget = true;'
         . '$(document).on("click",".bt_refreshHoroscopeWidget",function(){'
-        . 'var id=$(this).data("eqlogic-id");'
         . 'var icon=$(this).find("i");'
+        . 'var cmdId=$(this).data("refresh-cmd-id");'
         . 'icon.addClass("fa-spin");'
-        . '$.post("plugins/horoscopeplus/core/ajax/horoscopeplus.ajax.php",{action:"refresh",eqLogic_id:id},function(d){'
-        . 'icon.removeClass("fa-spin");'
-        . 'jeedom.eqLogic.toHtml({'
-        . 'id:id,'
-        . 'version:"dashboard",'
-        . 'success:function(html){'
-        . 'var el=$(".eqLogic-widget[data-eqlogic_id="+id+"]");'
-        . 'if(el.length){el.replaceWith(html);}'
-        . '}'
+        . 'jeedom.cmd.execute({'
+        . 'id:cmdId,'
+        . 'success:function(){icon.removeClass("fa-spin");},'
+        . 'error:function(){icon.removeClass("fa-spin");}'
         . '});'
-        . '},"json");'
         . '});}'
         . '</script>';
       return $html . $script;

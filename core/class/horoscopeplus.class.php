@@ -52,6 +52,10 @@ class horoscopeplus extends eqLogic {
 
       $rowCount = count($displayThemes);
 
+      // ID de la commande refresh pour le bouton de la tuile
+      $refreshCmd   = $this->getCmd('action', 'refresh');
+      $refreshCmdId = is_object($refreshCmd) ? $refreshCmd->getId() : 0;
+
       // Paramètres de style (configuration équipement)
       $col1_width  = $this->getConfiguration('col1_width',  '110px');
       $col1_bg     = $this->getConfiguration('col1_bg',     '');
@@ -127,8 +131,6 @@ class horoscopeplus extends eqLogic {
         $html = substr($html, 0, $posOpen) . $table . substr($html, $i);
       }
       // Ajouter le bouton refresh via JS dans la tuile
-      $refreshCmd = $this->getCmd('action', 'refresh');
-      $refreshCmdId = is_object($refreshCmd) ? $refreshCmd->getId() : 0;
       $script = '<script>'
         . 'if(typeof horoscopeplusRefreshWidget === "undefined"){'
         . 'window.horoscopeplusRefreshWidget = true;'

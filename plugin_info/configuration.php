@@ -26,7 +26,7 @@ $pluginVersion = isset($data['pluginVersion']) ? $data['pluginVersion'] : '?';
         <div class="form-group">
             <label class="col-sm-4 control-label">
                 {{Heure de rafraîchissement}}
-                <sup><i class="fas fa-question-circle" title="{{Expression cron définissant la fréquence de mise à jour de tous les horoscopes. Par défaut : tous les jours à 01:30.}}"></i></sup>
+                <sup><i class="fas fa-question-circle" title="{{Expression cron définissant la fréquence de mise à jour de tous les horoscopes. Par défaut : tous les jours à 02:30.}}"></i></sup>
             </label>
             <div class="col-sm-6">
                 <div class="input-group">
@@ -34,14 +34,14 @@ $pluginVersion = isset($data['pluginVersion']) ? $data['pluginVersion'] : '?';
                            id="inp_cron_refresh"
                            class="configKey form-control roundedLeft"
                            data-l1key="cron_refresh"
-                           placeholder="30 7 * * *" />
+                           placeholder="30 2 * * *" />
                     <span class="input-group-btn">
                         <a class="btn btn-default cursor jeeHelper roundedRight" data-helper="cron" title="{{Assistant cron}}">
                             <i class="fas fa-question-circle"></i>
                         </a>
                     </span>
                 </div>
-                <span class="help-block">{{Laisser vide pour utiliser le cron quotidien par défaut (01:30). Exemple : "30 7 * * *" pour tous les jours à 7h30.}}</span>
+                <span class="help-block">{{Laisser vide pour utiliser le cron quotidien par défaut (02:30). Exemple : "30 7 * * *" pour tous les jours à 7h30.}}</span>
             </div>
         </div>
 

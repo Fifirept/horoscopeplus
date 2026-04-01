@@ -580,7 +580,7 @@ class horoscopeplus extends eqLogic {
   /**
    * Appelé toutes les minutes par Jeedom.
    * - Si un cron personnalisé est défini dans la config : on vérifie l'expression et on refresh si due.
-   * - Sinon : comportement cronDaily (refresh une fois par jour à 01:30).
+   * - Sinon : comportement cronDaily (refresh une fois par jour à 02:30).
    */
   public static function cron() {
     $cronExpr = trim(config::byKey('cron_refresh', 'horoscopeplus', ''));
@@ -599,10 +599,10 @@ class horoscopeplus extends eqLogic {
       log::add('horoscopeplus', 'info', 'cron personnalisé déclenché (' . $cronExpr . ') à ' . date('H:i:s'));
     } else {
       // Pas de cron perso : on se comporte comme cronDaily (00:00)
-      if (date('H:i') !== '01:30') {
+      if (date('H:i') !== '02:30') {
         return;
       }
-      log::add('horoscopeplus', 'info', 'cron quotidien (défaut 01:30) démarré à ' . date('H:i:s'));
+      log::add('horoscopeplus', 'info', 'cron quotidien (défaut 02:30) démarré à ' . date('H:i:s'));
     }
 
     self::refreshAllEqLogics('cron');
